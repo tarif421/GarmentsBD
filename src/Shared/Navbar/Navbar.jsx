@@ -4,9 +4,21 @@ import { Link, NavLink } from "react-router";
 const Navbar = () => {
   const links = (
     <>
-      <NavLink>Home</NavLink>
-      <NavLink>Products</NavLink>
-      <NavLink>About</NavLink>
+      <NavLink to="/"     className={({ isActive }) =>
+            isActive
+              ? "text-[#192586] font-semibold"
+              : "hover:text-[#27379b] transition"
+          }>Home</NavLink>
+      <NavLink to="/allProducts" className={({ isActive }) =>
+            isActive
+              ? "text-[#192586] font-semibold"
+              : "hover:text-[#27379b] transition"
+          }>Products</NavLink>
+      <NavLink to="/about" className={({ isActive }) =>
+            isActive
+              ? "text-[#192586] font-semibold"
+              : "hover:text-[#27379b] transition"
+          }>About</NavLink>
     </>
   );
   return (
