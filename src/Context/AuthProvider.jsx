@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+import AuthContext from "./AuthContext";
 
-const AuthProvider = () => {
-  return (
-    <div>AuthProvider</div>
-  )
-}
+const AuthProvider = ({ children }) => {
+  const registerUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
 
-export default AuthProvider
+  const authInfo = {
+    registerUser,
+  };
+
+  return <AuthContext value={authInfo}>{children}</AuthContext>;
+};
+
+export default AuthProvider;
