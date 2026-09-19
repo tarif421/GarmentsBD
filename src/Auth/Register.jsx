@@ -1,7 +1,11 @@
 import React from "react";
+
+import useAuth from "../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 
 const Register = () => {
+  const { registerUser } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -9,7 +13,15 @@ const Register = () => {
   } = useForm();
 
   const handleRegistration = (data) => {
-    console.log("after registar", data);
+    // console.log("after registar", data);
+    registerUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <div>
@@ -29,9 +41,11 @@ const Register = () => {
           <label className="label">Password</label>
           <input
             type="password"
-            {...register("password", { required: true , minLength: 6,
-              pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/,
-             })}
+            {...register("password", {
+              required: true,
+              minLength: 6,
+              pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/,
+            })}
             className="input"
             placeholder="Password"
           />
@@ -43,7 +57,8 @@ const Register = () => {
           )}
           {errors.password?.type === "pattern" && (
             <p className="text-red-500">
-              Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.
+              Password must contain at least one uppercase letter, one lowercase
+              letter, one number, and one special character.
             </p>
           )}
           <div>
